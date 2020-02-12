@@ -40,34 +40,42 @@
                     </select>
                     </div>
                 </div>
+                <!--合計-->              
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>合計</label>
+                        <input type="text" class="form-control" name="" id="" value="" readonly>
+                    </div>
+                </div>         
+
             </div>
             <div class="row">
                 <!--雞腿飯-90元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>雞腿飯-90元<span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control" name="entry.672544075" id="672544075" value="0" min=0>
+                        <label><span class="title">雞腿飯-90元</span><span class="text-danger">(請填數量)</span></label>
+                        <input type="number" class="form-control amount" name="entry.672544075" id="672544075" value="0" min=0 onchange="calTotal();">
                     </div>
                 </div>          
                 <!--雞排飯-80元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>雞排飯-80元<span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control" name="entry.904913690" id="904913690" value="0" min=0>
+                        <label><span class="title">雞排飯-80元</span><span class="text-danger">(請填數量)</span></label>
+                        <input type="number" class="form-control amount" name="entry.904913690" id="904913690" value="0" min=0 onchange="calTotal();">
                     </div>
                 </div>          
                 <!--排骨飯-70元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>排骨飯-70元<span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control" name="entry.1051371274" id="1051371274" value="0" min=0>
+                        <label><span class="title">排骨飯-70元</span><span class="text-danger">(請填數量)</span></label>
+                        <input type="number" class="form-control amount" name="entry.1051371274" id="1051371274" value="0" min=0 onchange="calTotal();">
                     </div>
                 </div>          
                 <!--招牌飯-60元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>招牌飯-60元<span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control" name="entry.202608930" id="202608930" value="0" min=0>
+                        <label><span class="title">招牌飯-60元</span><span class="text-danger">(請填數量)</span></label>
+                        <input type="number" class="form-control amount" name="entry.202608930" id="202608930" value="0" min=0 onchange="calTotal();">
                     </div>
                 </div> 
 
@@ -153,6 +161,23 @@
             });
 
         });
+
+        function calTotal(){
+            //document.getElementsByClassName("amount")[0].value //取數量
+            //document.getElementsByClassName("title")[0].innerText //取標題
+            var amounts = document.getElementsByClassName("amount");
+            var titles = document.getElementsByClassName("title");
+            var total = 0;
+            for(var i=0; i < amounts.length; i++){
+                var amount = document.getElementsByClassName("amount")[i].value;
+                var title = document.getElementsByClassName("title")[i].innerText //取標題
+                var subArr = title.split("-");
+                var price = parseInt(subArr[1]);
+                total += amount * price;
+                
+            }
+            console.log(total);
+        }
     </script>
   </body>
 </html>
