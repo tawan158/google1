@@ -24,8 +24,7 @@
 
         <form  target='returnWin' role="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSflkPKnka5BAfX7GkH6t4d5Xp5-CqffM5UVRp3h662Y6XLH1g/formResponse" method="post" id="myForm" >
             <div class="row">         
-                <!--桌號-->  
-                
+                <!--桌號--> 
                 <div class="col-sm-3">
                     <div class="form-group">
                     <label>桌號<span class="text-danger">*</span></label>
@@ -44,9 +43,9 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>合計</label>
-                        <input type="text" class="form-control" name="" id="" value="" readonly>
+                        <input type="text" class="form-control" name="total" id="total" value="" readonly>
                     </div>
-                </div>         
+                </div>              
 
             </div>
             <div class="row">
@@ -54,28 +53,28 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label><span class="title">雞腿飯-90元</span><span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control amount" name="entry.672544075" id="672544075" value="0" min=0 onchange="calTotal();">
+                        <input type="number" class="form-control amount" name="entry.672544075" id="672544075" value="0" min=0 onchange="calTotal()">
                     </div>
                 </div>          
                 <!--雞排飯-80元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label><span class="title">雞排飯-80元</span><span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control amount" name="entry.904913690" id="904913690" value="0" min=0 onchange="calTotal();">
+                        <input type="number" class="form-control amount" name="entry.904913690" id="904913690" value="0" min=0 onchange="calTotal()">
                     </div>
                 </div>          
                 <!--排骨飯-70元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label><span class="title">排骨飯-70元</span><span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control amount" name="entry.1051371274" id="1051371274" value="0" min=0 onchange="calTotal();">
+                        <input type="number" class="form-control amount" name="entry.1051371274" id="1051371274" value="0" min=0 onchange="calTotal()">
                     </div>
                 </div>          
                 <!--招牌飯-60元-->              
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label><span class="title">招牌飯-60元</span><span class="text-danger">(請填數量)</span></label>
-                        <input type="number" class="form-control amount" name="entry.202608930" id="202608930" value="0" min=0 onchange="calTotal();">
+                        <input type="number" class="form-control amount" name="entry.202608930" id="202608930" value="0" min=0 onchange="calTotal()">
                     </div>
                 </div> 
 
@@ -134,6 +133,9 @@
                     'entry.202608930' : {//招牌飯
                         digits:true ,
                         min: 0
+                    },
+                    'total' : {//合計
+                        required: true
                     }
                 },
                 messages: {
@@ -155,6 +157,9 @@
                     'entry.202608930' : {//招牌飯
                         digits:"請填正確數量" ,
                         min: "請填正確數量"
+                    },
+                    'total' : {//合計
+                        required: "尚未點餐"
                     }
 
                 }
@@ -162,22 +167,47 @@
 
         });
 
+    </script>
+
+    <script>
+        //合計金額
         function calTotal(){
-            //document.getElementsByClassName("amount")[0].value //取數量
-            //document.getElementsByClassName("title")[0].innerText //取標題
-            var amounts = document.getElementsByClassName("amount");
+            // document.getElementsByClassName("title")[0].innerText //取標題
+            // document.getElementsByClassName("amount")[0].value //取數量
             var titles = document.getElementsByClassName("title");
+            var amounts = document.getElementsByClassName("amount");
             var total = 0;
-            for(var i=0; i < amounts.length; i++){
+            for(var i=0; i < titles.length; i++){
+                var title = document.getElementsByClassName("title")[i].innerText;
                 var amount = document.getElementsByClassName("amount")[i].value;
-                var title = document.getElementsByClassName("title")[i].innerText //取標題
                 var subArr = title.split("-");
                 var price = parseInt(subArr[1]);
-                total += amount * price;
-                
+                total += (amount * price);
             }
-            console.log(total);
+            if(total === 0){
+                document.getElementById("total").value = "";
+            }else{
+                document.getElementById("total").value = total;
+            }
+            
         }
+    
+        // function calTotal(){
+        //     //document.getElementsByClassName("amount")[0].value //取數量
+        //     //document.getElementsByClassName("title")[0].innerText //取標題
+        //     var amounts = document.getElementsByClassName("amount");
+        //     var titles = document.getElementsByClassName("title");
+        //     var total = 0;
+        //     for(var i=0; i < amounts.length; i++){
+        //         var amount = document.getElementsByClassName("amount")[i].value;
+        //         var title = document.getElementsByClassName("title")[i].innerText //取標題
+        //         var subArr = title.split("-");
+        //         var price = parseInt(subArr[1]);
+        //         total += amount * price;
+                
+        //     }
+        //     console.log(total);
+        // }
     </script>
   </body>
 </html>
